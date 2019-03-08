@@ -1,6 +1,6 @@
 <template>
   <nav>
-    <v-toolbar dark color="green lighten-1" app>
+    <v-toolbar dark color="primary" app>
       <v-toolbar-side-icon @click="drawer = !drawer"></v-toolbar-side-icon>
       <v-toolbar-title class="headline text-uppercase">
         <span>My Vegetables</span>
@@ -17,8 +17,24 @@
       </v-btn>
     </v-toolbar>
 
-    <v-navigation-drawer v-model="drawer" app color="green darken-3">
-      <p>test</p>
+    <v-navigation-drawer v-model="drawer" app class="secondary">
+      <v-list>
+        <v-list-tile
+          v-for="link in links"
+          :key="link.text"
+          router
+          :to="link.route"
+        >
+          <v-list-tile-action>
+            <v-icon class="white--text">{{ link.icon }}</v-icon>
+          </v-list-tile-action>
+          <v-list-title-content>
+            <v-list-title-title class="white--text">
+              {{ link.text }}
+            </v-list-title-title>
+          </v-list-title-content>
+        </v-list-tile>
+      </v-list>
     </v-navigation-drawer>
   </nav>
 </template>
@@ -27,7 +43,12 @@
 export default {
   data() {
     return {
-      drawer: false
+      drawer: false,
+      links: [
+        { icon: "dashboard", text: "Home", route: "/" },
+        { icon: "folder", text: "My project", route: "/projects" },
+        { icon: "person", text: "Team", route: "/team" }
+      ]
     };
   }
 };
